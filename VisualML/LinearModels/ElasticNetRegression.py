@@ -3,7 +3,7 @@ import numpy as np
 X = np.random.rand(1000,10)
 Y = np.random.rand(1000,1)
 
-class LinearRegression:
+class LassoRegression:
     def __init__(self,X,Y,Lrate):
         self.Weights = np.random.rand(1,10)
         self.Biases = np.random.rand(1,1)
@@ -31,5 +31,5 @@ class LinearRegression:
 
         return A
 
-LR = LinearRegression(X,Y,0.01)
+LR = LassoRegression(X,Y,0.01)
 print(LR.Predict(np.random.rand(5,10)))

@@ -3,10 +3,11 @@ import numpy as np
 X = np.random.rand(1000,10)
 Y = np.random.rand(1000,1)
 
-class LinearRegression:
+class LogisticRegression:
     def __init__(self,X,Y,Lrate):
         self.Weights = np.random.rand(1,10)
         self.Biases = np.random.rand(1,1)
+        self.Threshold = 0.5
         self.Lrate = Lrate
         self.Epochs =10
         
@@ -17,7 +18,6 @@ class LinearRegression:
     
     def Train(self,X,Y):
         for _ in range(self.Epochs):
-            print("Epochs : ",_)
             #Forward Propagation
             Z = np.dot(self.Weights,X.T) + self.Biases.copy()
             A = self.Sigmoid(Z)
@@ -34,7 +34,9 @@ class LinearRegression:
         Z = np.dot(self.Weights,X.T) + self.Biases.copy()
         A = self.Sigmoid(Z)
 
+        # Add Threshold value
+
         return A
 
-LR = LinearRegression(X,Y,0.01)
-print(LR.Predict(np.random.rand(5,10)))
+LR = LogisticRegression(X,Y,0.01)
+print(LR.Predict(np.random.rand(1,10)))
