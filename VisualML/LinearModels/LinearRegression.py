@@ -1,18 +1,19 @@
 import numpy as np
 
-X = np.random.rand(1000,10)
-Y = np.random.rand(1000,1)
-
 class LinearRegression:
     def __init__(self,X,Y,Lrate):
-        self.Weights = np.random.rand(1,10)
+        Feature = X.shape[1]
+        self.Weights = np.random.rand(1,Feature)
         self.Biases = np.random.rand(1,1)
         self.Lrate = Lrate
-        self.Epochs =10
-        
+        self.Epochs =100
+        print(self.Weights)
         self.Train(X,Y)
+        print(self.Weights)
 
     def Train(self,X,Y):
+        N = X.shape[0]
+
         for _ in range(self.Epochs):
             #Forward Propagation
             A = np.dot(self.Weights,X.T) + self.Biases.copy()
@@ -22,14 +23,15 @@ class LinearRegression:
             LOSSX = np.dot(LOSS,X)
             
             #Updating Parameters
-            self.Weights += (self.Lrate/1000)*LOSSX
-            self.Biases += (self.Lrate/1000)*np.sum(LOSSX,axis=1)
+            self.Weights -= (self.Lrate/N)*LOSSX
+            self.Biases -= (self.Lrate/N)*np.sum(LOSSX,axis=1)
 
     def Predict(self,X):
-        Z = np.dot(self.Weights,X.T) + self.Biases.copy()
-        A = Z
+        A = np.dot(self.Weights,X.T) + self.Biases.copy()
 
         return A
 
+X = np.random.rand(1000,5)
+Y = np.random.rand(1000,1)
 LR = LinearRegression(X,Y,0.01)
-print(LR.Predict(np.random.rand(5,10)))
+print(LR.Predict(np.random.rand(5,5)))
